@@ -25,6 +25,7 @@ module.exports =
         empty: sql('users/empty.sql'),
         delete: sql('users/delete.sql'),
         all: sql('common/all.sql'),
-        count: sql('common/count.sql')
+        count: sql('common/count.sql'),
+        exists: sql('common/exists.sql')
     }
 }
