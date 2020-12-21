@@ -20,3 +20,8 @@ exports.signUp = async function (newUser)
 
     return await db.users.insert(newUser);
 }
+
+exports.logIn = async function (user)
+{
+
+}
