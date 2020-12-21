@@ -1,0 +1,1 @@
+SELECT EXISTS (SELECT ${column:name} FROM ${table:name} WHERE ${column:name} = ${columnData})
