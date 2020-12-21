@@ -14,8 +14,6 @@ class UsersRepo
 
     async insert(newUser)
     {
-        //return this.db.one(usersSQL.insert, newUser);
-        //console.log(this.pgp.helpers.insert(newUser, cs.insert) + ' RETURNING id');
         return this.db.one(this.pgp.helpers.insert(newUser, cs.insert) + 'RETURNING id');
     }
 
@@ -42,7 +40,6 @@ class UsersRepo
     async update(userUpdate)
     {
         const query = this.pgp.helpers.update(userUpdate, cs.insert) + this.pgp.as.format(' WHERE id = ${id} RETURNING *', userUpdate);
-        //console.log(query);
         return this.db.one(query);
     }
 

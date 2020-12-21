@@ -1,5 +1,5 @@
 const { db } = require('../database');
-const authService = require('../services/authService');
+const { signUp } = require('../services/authService');
 
 exports.userDetail = function userDetail(req, res, next)
 {
@@ -11,32 +11,29 @@ exports.userCreateGET = function (req, res, next)
     res.render('register');
 }
 
-exports.userCreatePOST = async function (req, res, next)
+exports.userCreatePOST = function (req, res, next)
 {
-    const users = [];
-    try
+    const newUser =
     {
-        users.push(
-            {
-                firstname: req.body.firstname,
-                middlename: req.body.middlename,
-                lastname: req.body.lastname,
-                email: req.body.email,
-                password: req.body.password,
-                phonenumber: req.body.phonenumber
-            });
-        //const authServiceInstance = new AuthService();
-        //await authServiceInstance.SignUp(users[0]);
-        authService.signUp(users[0]);
+        firstname: req.body.firstname,
+        middlename: req.body.middlename,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password,
+        phonenumber: req.body.phonenumber
+    };
 
-        res.redirect('/users/login');
-    }
-    catch (e)
-    {
-        console.log(e);
-        res.redirect('/users/register');
-    }
-    //console.log(users);
+    signUp(newUser)
+        .then(userInfo =>
+        {
+            res.render('login', { id: userInfo.id })
+        })
+        .catch(e => 
+        {
+            console.log(e.message);
+            res.redirect('/users/register');
+        });
+
 }
 
 exports.userUpdateGET = function (req, res, next)

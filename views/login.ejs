@@ -1,4 +1,9 @@
 <h1>Login</h1>
+
+<% if (typeof id !== 'undefined' && id) { %>
+<h2>Your new account ID is <%= id %>.</h2>
+<% } %>
+
 <form method="post" action="/login">
 	<p>
 		<label for="email">Email: </label>

@@ -1,22 +1,22 @@
 const argon2 = require('argon2');
+const { promiseImpl } = require('ejs');
 const { db } = require('../database');
 
 exports.signUp = async function (newUser)
 {
-    try
+    let [hashedPassword, existsEmail] = await Promise.all(
+        [
+            argon2.hash(newUser.password, { type: argon2.argon2id }),
+            db.users.existsEmail(newUser.email)
+        ]
+    );
+
+    if (existsEmail)
     {
-        newUser.password = await argon2.hash(newUser.password, { type: argon2.argon2id });
-        //console.log(newUser.email);
-        //db.users.existsEmail(newUser.email).then(console.log);
-        if (await db.users.existsEmail(newUser.email))
-        {
-            console.log('email exists');
-        }
-        //await db.users.insert(newUser);
+        throw new Error('This email address is not available. Choose a different address.');
     }
-    catch (e)
-    {
-        console.log(e);
-    }
-    //console.log(newUser);
+
+    newUser.password = hashedPassword;
+
+    return await db.users.insert(newUser);
 }
