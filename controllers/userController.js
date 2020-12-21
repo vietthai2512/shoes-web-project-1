@@ -31,7 +31,7 @@ exports.userCreatePOST = function (req, res, next)
         .catch(e => 
         {
             console.log(e.message);
-            res.redirect('/users/register');
+            res.render('register', { error: e });
         });
 
 }
