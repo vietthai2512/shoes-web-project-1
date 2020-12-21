@@ -45,7 +45,7 @@ class UsersRepo
 
     async existsEmail(email)
     {
-        return this.db.one('SELECT EXISTS (SELECT email FROM users WHERE email = $1)', email).then(result => result.exists);
+        return this.db.one(usersSQL.exists, { column: 'email', table: 'users', columnData: email }).then(result => result.exists);
     }
 }
 
