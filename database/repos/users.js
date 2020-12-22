@@ -47,6 +47,11 @@ class UsersRepo
     {
         return this.db.one(usersSQL.exists, { column: 'email', table: 'users', columnData: email }).then(result => result.exists);
     }
+
+    async findByEmail(email)
+    {
+        return this.db.oneOrNone(usersSQL.find, { table: 'users', column: 'email', columnData: email });
+    }
 }
 
 function createColumnsets(pgp)
