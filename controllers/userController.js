@@ -1,5 +1,5 @@
 const { db } = require('../database');
-const { signUp } = require('../services/authService');
+const { signUp, logIn } = require('../services/authService');
 
 exports.userDetail = function userDetail(req, res, next)
 {
@@ -34,6 +34,26 @@ exports.userCreatePOST = function (req, res, next)
             res.render('register', { error: e });
         });
 
+}
+
+exports.userLogInGET = function (req, res, next)
+{
+    res.render('login');
+}
+
+exports.userLogInPOST = function (req, res, next)
+{
+    const user =
+    {
+        email: req.body.email,
+        password: req.body.password
+    }
+
+    logIn(user).catch(e =>
+    {
+        console.log(e.message);
+        res.render('login', { error: e });
+    })
 }
 
 exports.userUpdateGET = function (req, res, next)
