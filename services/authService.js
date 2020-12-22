@@ -1,5 +1,6 @@
 const argon2 = require('argon2');
 const { promiseImpl } = require('ejs');
+const e = require('express');
 const { db } = require('../database');
 
 exports.signUp = async function (newUser)
@@ -23,5 +24,17 @@ exports.signUp = async function (newUser)
 
 exports.logIn = async function (user)
 {
+    const result = await db.users.findByEmail(user.email);
 
+    if (result === null)
+    {
+        throw new Error('Your email or password was incorrect.');
+    }
+
+    if (await argon2.verify(result.password, user.password))
+    {
+        throw new Error('Correct password');
+    }
+    else
+        throw new Error('Your email or password was incorrect.');
 }
