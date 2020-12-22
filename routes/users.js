@@ -30,21 +30,17 @@ const id = '77e366c7-7aab-4f46-bc39-77dc502049bd'
 //db.users.update(updateUser);
 //db.users.insert(testUser);
 /* GET users listing. */
-router.get('/login', function (req, res, next)
-{
-    //db.users.insert(testUser).then(result => console.log(`added ${result.id}`));
-    //db.users.empty();
-    //db.users.delete(id).then(result => console.log(`deleted ${result.id}`));
-    //db.users.count().then(console.log).catch(console.log);
-    //db.users.all().then(console.log).catch(console.log);
-    //db.none(query).catch(console.log);
-    res.render('login');
-});
+router.get('/login', userController.userLogInGET);
+//db.users.insert(testUser).then(result => console.log(`added ${result.id}`));
+//db.users.empty();
+//db.users.delete(id).then(result => console.log(`deleted ${result.id}`));
+//db.users.count().then(console.log).catch(console.log);
+//db.users.all().then(console.log).catch(console.log);
+//db.none(query).catch(console.log);
+//res.render('login');
 
-router.post('/login', (req, res, next) =>
-{
 
-});
+router.post('/login', userController.userLogInPOST);
 
 router.get('/register', userController.userCreateGET);
 
