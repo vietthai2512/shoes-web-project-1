@@ -49,7 +49,7 @@ exports.userLogInPOST = function (req, res, next)
         password: req.body.password
     }
 
-    logIn(user).catch(e =>
+    logIn(user).then(console.log).catch(e =>
     {
         console.log(e.message);
         res.render('login', { error: e });
