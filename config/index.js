@@ -25,11 +25,13 @@ module.exports =
     JWT_ACCESS:
     {
         SECRET: process.env.ACCESS_TOKEN_SECRET,
-        EXP: process.env.ACCESS_TOKEN_EXP
+        EXP: process.env.ACCESS_TOKEN_EXP,
+        ALGORITHM: process.env.JWT_ALGORITHM
     },
     JWT_REFRESH:
     {
         SECRET: process.env.REFRESH_TOKEN_SECRET,
-        EXP: process.env.REFRESH_TOKEN_EXP
+        EXP: process.env.REFRESH_TOKEN_EXP,
+        ALGORITHM: process.env.JWT_ALGORITHM
     }
 };
