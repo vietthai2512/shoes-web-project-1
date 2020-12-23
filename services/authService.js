@@ -1,7 +1,7 @@
 const argon2 = require('argon2');
-const { promiseImpl } = require('ejs');
-const e = require('express');
+const jwt = require('jsonwebtoken');
 const { db } = require('../database');
+const { JWT_ACCESS } = require('../config')
 
 exports.signUp = async function (newUser)
 {
@@ -33,8 +33,18 @@ exports.logIn = async function (user)
 
     if (await argon2.verify(result.password, user.password))
     {
-        throw new Error('Correct password');
+        console.log('Correct password');
+        const payloadToken = {
+            id: result.id,
+            email: user.email
+        }
+        return generateAccessToken(payloadToken);
     }
     else
         throw new Error('Your email or password was incorrect.');
+}
+
+function generateAccessToken(payload)
+{
+    return jwt.sign(payload, JWT_ACCESS.SECRET, { expiresIn: JWT_ACCESS.EXP });
 }
