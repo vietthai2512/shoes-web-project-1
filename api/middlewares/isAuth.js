@@ -1,4 +1,5 @@
 const jwt = require('express-jwt');
+const { token } = require('morgan');
 const { JWT_ACCESS, JWT_REFRESH } = require('../../config');
 
 const getTokenFromHeader = (req) => 
@@ -16,6 +17,8 @@ const getTokenFromHeader = (req) =>
 exports.isAuth = jwt(
     {
         secret: JWT_ACCESS.SECRET,
-
+        algorithms: [JWT_ACCESS.ALGORITHM],
+        requestProperty: 'token',
+        getToken: getTokenFromHeader
     }
-)
+);
