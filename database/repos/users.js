@@ -52,6 +52,11 @@ class UsersRepo
     {
         return this.db.oneOrNone(usersSQL.find, { table: 'users', column: 'email', columnData: email });
     }
+
+    async findByID(id)
+    {
+        return this.db.oneOrNone(usersSQL.find, { table: 'users', column: 'id', columnData: id });
+    }
 }
 
 function createColumnsets(pgp)
