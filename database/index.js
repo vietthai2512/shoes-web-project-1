@@ -1,5 +1,5 @@
 const pgPromise = require('pg-promise');
-const config = require('../config');
+const { PG_CONNECTION } = require('../config');
 const { Users } = require('./repos');
 
 const initOptions =
@@ -12,6 +12,6 @@ const initOptions =
 }
 
 const pgp = pgPromise(initOptions);
-const db = pgp(config.PG_CONNECTION);
+const db = pgp(PG_CONNECTION);
 
 module.exports = { db, pgp };
