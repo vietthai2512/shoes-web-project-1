@@ -46,5 +46,5 @@ exports.logIn = async function (user)
 
 function generateAccessToken(payload)
 {
-    return jwt.sign(payload, JWT_ACCESS.SECRET, { expiresIn: JWT_ACCESS.EXP });
+    return jwt.sign(payload, JWT_ACCESS.SECRET, { algorithm: JWT_ACCESS.ALGORITHM, expiresIn: JWT_ACCESS.EXP });
 }
