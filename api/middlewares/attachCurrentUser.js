@@ -6,19 +6,18 @@ const { db } = require('../../database')
  * @param {*} res  Express res Object
  * @param {*} next  Express next Function
  */
-module.exports = async function (req, res, next)
+const attachCurrentUser = async function (req, res, next)
 {
     try
     {
-        const decodedUser = req.token.data;
-        const userRecord = await db.users.findByID(decodedUser.id);
+        const userRecord = await db.users.findByID(req.token.id);
 
         if (!userRecord)
         {
             return res.sendStatus(401);
         }
 
-        const currentUser = userRecord.toObject();
+        const currentUser = userRecord;
         Reflect.deleteProperty(currentUser, 'password');
         req.currentUser = currentUser;
 
@@ -29,3 +28,5 @@ module.exports = async function (req, res, next)
         return next(e);
     }
 }
+
+module.exports = attachCurrentUser;
