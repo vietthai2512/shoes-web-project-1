@@ -21,5 +21,15 @@ module.exports =
         database: process.env.DB_NAME,
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD
+    },
+    JWT_ACCESS:
+    {
+        SECRET: process.env.ACCESS_TOKEN_SECRET,
+        EXP: process.env.ACCESS_TOKEN_EXP
+    },
+    JWT_REFRESH:
+    {
+        SECRET: process.env.REFRESH_TOKEN_SECRET,
+        EXP: process.env.REFRESH_TOKEN_EXP
     }
 };
