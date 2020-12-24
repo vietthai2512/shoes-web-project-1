@@ -1,7 +1,7 @@
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 const { db } = require('../database');
-const { JWT_ACCESS } = require('../config')
+const { JWT_ACCESS, JWT_REFRESH } = require('../config')
 
 exports.signUp = async function (newUser)
 {
@@ -64,4 +64,9 @@ exports.logIn = async function (user)
 function generateAccessToken(payload)
 {
     return jwt.sign(payload, JWT_ACCESS.SECRET, { algorithm: JWT_ACCESS.ALGORITHM, expiresIn: JWT_ACCESS.EXP });
+}
+
+function generateRefreshToken(payload)
+{
+    return jwt.sign(payload, JWT_REFRESH.SECRET, { algorithm: JWT_REFRESH.ALGORITHM, expiresIn: JWT_REFRESH.EXP });
 }
