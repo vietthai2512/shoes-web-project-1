@@ -1,5 +1,5 @@
 const { db } = require('../database');
-const { signUp, logIn } = require('../services/authService');
+const authService = require('../services/authService');
 
 exports.userDetail = function userDetail(req, res, next)
 {
@@ -11,29 +11,29 @@ exports.userCreateGET = function (req, res, next)
     res.render('register');
 }
 
-exports.userCreatePOST = function (req, res, next)
+exports.userCreatePOST = async function (req, res, next)
 {
-    const newUser =
+    try
     {
-        firstname: req.body.firstname,
-        middlename: req.body.middlename,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        password: req.body.password,
-        phonenumber: req.body.phonenumber
-    };
-
-    signUp(newUser)
-        .then(userInfo =>
+        const newUser =
         {
-            res.render('login', { id: userInfo.id })
-        })
-        .catch(e => 
-        {
-            console.log(e.message);
-            res.render('register', { error: e });
-        });
+            firstname: req.body.firstname,
+            middlename: req.body.middlename,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            password: req.body.password,
+            phonenumber: req.body.phonenumber
+        };
 
+        const createdUser = await authService.signUp(newUser);
+
+        return res.status(201).render('login', { id: createdUser.id });
+    }
+    catch (e)
+    {
+        res.status(409).render('register', { error: e });
+        //return next(e);
+    }
 }
 
 exports.userLogInGET = function (req, res, next)
@@ -41,19 +41,24 @@ exports.userLogInGET = function (req, res, next)
     res.render('login');
 }
 
-exports.userLogInPOST = function (req, res, next)
+exports.userLogInPOST = async function (req, res, next)
 {
-    const user =
+    try
     {
-        email: req.body.email,
-        password: req.body.password
-    }
+        const user =
+        {
+            email: req.body.email,
+            password: req.body.password
+        }
 
-    logIn(user).then(console.log).catch(e =>
+        const token = await authService.logIn(user);
+
+        res.status(200).render('login', { success: 'Correct password. Your token is ' + token });
+    }
+    catch (e)
     {
-        console.log(e.message);
         res.render('login', { error: e });
-    })
+    }
 }
 
 exports.userUpdateGET = function (req, res, next)
