@@ -4,6 +4,8 @@
 <h2>Your new account ID is <%= id %>.</h2>
 <% } %> <% if (typeof error !== 'undefined' && error) { %>
 <h2><%= error.message %></h2>
+<% } %> <% if (typeof success !== 'undefined' && success) { %>
+<h2><%= success %>.</h2>
 <% } %>
 
 <form method="post" action="/users/login">
