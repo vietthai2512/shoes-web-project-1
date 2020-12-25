@@ -53,7 +53,7 @@ exports.userLogInPOST = async function (req, res, next)
 
         const token = await authService.logIn(user);
 
-        res.status(200).render('login', { success: 'Correct password. Your token is ' + token });
+        res.status(200).cookie('access_token', token, { maxAge: 900000 }).render('login', { success: 'Correct password. Your token is ' + token });
     }
     catch (e)
     {
