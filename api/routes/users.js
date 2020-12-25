@@ -47,7 +47,14 @@ router.get('/register', userController.userCreateGET);
 
 router.post('/register', userController.userCreatePOST);
 
-router.get('/me', middlewares.isAuth, middlewares.attachCurrentUser, (req, res, next) => 
+router.get('/me', /*middlewares.isAuth, middlewares.attachCurrentUser,*/(req, res, next) => 
+{
+    res.render('me');
+    //console.log(req.cookies);
+    //return res.set('Authorization', 'Bearer ' + req.cookies['access_token']).json({ user: req.currentUser }).status(200);
+});
+
+router.post('/me', middlewares.isAuth, middlewares.attachCurrentUser, (req, res, next) => 
 {
     return res.json({ user: req.currentUser }).status(200);
 });
