@@ -49,14 +49,20 @@ router.post('/register', userController.userCreatePOST);
 
 router.get('/me', /*middlewares.isAuth, middlewares.attachCurrentUser,*/(req, res, next) => 
 {
-    res.render('me');
+    console.log(req.cookies.refreshToken);
+    res.send('hello');
+    //res.render('me');
     //console.log(req.cookies);
     //return res.set('Authorization', 'Bearer ' + req.cookies['access_token']).json({ user: req.currentUser }).status(200);
 });
 
-router.post('/me', middlewares.isAuth, middlewares.attachCurrentUser, (req, res, next) => 
+router.post('/me'/*, middlewares.isAuth, middlewares.attachCurrentUser*/, (req, res, next) => 
 {
-    return res.json({ user: req.currentUser }).status(200);
+    console.log(req.cookies);
+    res.send('hello');
+    //return res.json({ user: req.currentUser }).status(200);
 });
+
+router.post('/refresh_token');
 
 module.exports = router;
