@@ -55,18 +55,22 @@ exports.logIn = async function (user)
             id: userRecord.id,
             email: user.email
         }
-        return generateAccessToken(payloadToken);
+        return [accessToken, refreshToken] = await Promise.all(
+            [
+                generateAccessToken(payloadToken),
+                generateRefreshToken(payloadToken)
+            ]);
     }
     else
         throw new Error('Your email or password was incorrect.');
 }
 
-function generateAccessToken(payload)
+async function generateAccessToken(payload)
 {
-    return jwt.sign(payload, JWT_ACCESS.SECRET, { algorithm: JWT_ACCESS.ALGORITHM, expiresIn: JWT_ACCESS.EXP });
+    return await jwt.sign(payload, JWT_ACCESS.SECRET, { algorithm: JWT_ACCESS.ALGORITHM, expiresIn: JWT_ACCESS.EXP });
 }
 
-function generateRefreshToken(payload)
+async function generateRefreshToken(payload)
 {
-    return jwt.sign(payload, JWT_REFRESH.SECRET, { algorithm: JWT_REFRESH.ALGORITHM, expiresIn: JWT_REFRESH.EXP });
+    return await jwt.sign(payload, JWT_REFRESH.SECRET, { algorithm: JWT_REFRESH.ALGORITHM, expiresIn: JWT_REFRESH.EXP });
 }
