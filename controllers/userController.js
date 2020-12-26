@@ -1,5 +1,6 @@
 const { db } = require('../database');
 const authService = require('../services/authService');
+const { JWT_ACCESS, JWT_REFRESH } = require('../config')
 
 exports.userDetail = function userDetail(req, res, next)
 {
@@ -51,9 +52,16 @@ exports.userLogInPOST = async function (req, res, next)
             password: req.body.password
         }
 
-        const token = await authService.logIn(user);
+        const [accessToken, refreshToken] = await authService.logIn(user);
+        const dotLastIndex = accessToken.lastIndexOf('.');
+        const accessToken_HeaderPayload = accessToken.slice(0, dotLastIndex);
+        const accessToken_Signature = accessToken.slice(dotLastIndex);
 
-        res.status(200).cookie('access_token', token, { maxAge: 900000 }).render('login', { success: 'Correct password. Your token is ' + token });
+        res.status(200)
+            .cookie('accessToken_HeaderPayload', accessToken_HeaderPayload, { expires: new Date(Date.now() + JWT_ACCESS.EXP), maxAge: JWT_ACCESS.EXP/*, secure: true, /*sameSite: true*/ })
+            .cookie('accessToken_Signature', accessToken_Signature, { expires: new Date(Date.now() + JWT_ACCESS.EXP), maxAge: JWT_ACCESS.EXP/*, secure: true/*, sameSite: true*/, httpOnly: true })
+            .cookie('refreshToken', refreshToken, { expires: new Date(Date.now() + JWT_REFRESH.EXP), maxAge: JWT_REFRESH.EXP/*, secure: true/*, sameSite: true*/, httpOnly: true })
+            .render('login', { success: `Correct password. Your access token is ${accessToken}, your refresh token is ${refreshToken}` });
     }
     catch (e)
     {
