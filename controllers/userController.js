@@ -1,6 +1,7 @@
 const { db } = require('../database');
 const authService = require('../services/authService');
-const { JWT_ACCESS, JWT_REFRESH } = require('../config')
+const tokenService = require('../services/tokenService');
+const { JWT_ACCESS, JWT_REFRESH } = require('../config');
 
 exports.userDetail = function userDetail(req, res, next)
 {
@@ -39,7 +40,10 @@ exports.userCreatePOST = async function (req, res, next)
 
 exports.userLogInGET = function (req, res, next)
 {
-    res.render('login');
+    if (res.locals.isAuth)
+        res.redirect('/users/me');
+    else
+        res.render('login');
 }
 
 exports.userLogInPOST = async function (req, res, next)
@@ -53,15 +57,12 @@ exports.userLogInPOST = async function (req, res, next)
         }
 
         const [accessToken, refreshToken] = await authService.logIn(user);
-        const dotLastIndex = accessToken.lastIndexOf('.');
-        const accessToken_HeaderPayload = accessToken.slice(0, dotLastIndex);
-        const accessToken_Signature = accessToken.slice(dotLastIndex);
+        const [accessToken_HeaderPayload, accessToken_Signature] = tokenService.splitToken(accessToken);
 
-        res.status(200)
-            .cookie('accessToken_HeaderPayload', accessToken_HeaderPayload, { expires: new Date(Date.now() + JWT_ACCESS.EXP), maxAge: JWT_ACCESS.EXP/*, secure: true, /*sameSite: true*/ })
-            .cookie('accessToken_Signature', accessToken_Signature, { expires: new Date(Date.now() + JWT_ACCESS.EXP), maxAge: JWT_ACCESS.EXP/*, secure: true/*, sameSite: true*/, httpOnly: true })
-            .cookie('refreshToken', refreshToken, { expires: new Date(Date.now() + JWT_REFRESH.EXP), maxAge: JWT_REFRESH.EXP/*, secure: true/*, sameSite: true*/, httpOnly: true })
-            .render('login', { success: `Correct password. Your access token is ${accessToken}, your refresh token is ${refreshToken}` });
+        res.status(200);
+        tokenService.setTokenCookies(res, accessToken_HeaderPayload, accessToken_Signature, refreshToken);
+        //res.render('login', { success: `Correct password. Your access token is ${accessToken}, your refresh token is ${refreshToken}` });
+        res.redirect('/users/me');
     }
     catch (e)
     {
