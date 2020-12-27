@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { JWT_ACCESS, JWT_REFRESH } = require('../../config');
 const tokenService = require('../../services/tokenService');
-const set = require('lodash.set');
 
 module.exports = function isAuth(req, res, next)
 {
@@ -16,27 +15,31 @@ module.exports = function isAuth(req, res, next)
             {
                 if (errRef) 
                 {
-                    return res.status(403).redirect('/users/login');
-                }
-
-                const payload = {
-                    id: decodedRef.id,
-                    email: decodedRef.email
-                };
-
-                res.locals.user = decodedRef;
-                res.locals.isAuth = true;
-                Promise.all(
-                    [
-                        tokenService.generateAccessToken(payload),
-                        tokenService.generateRefreshToken(payload)
-                    ]
-                ).then(([newAccessToken, newRefreshToken]) => 
-                {
-                    const [newAccessToken_HeaderPayload, newAccessToken_Signature] = tokenService.splitToken(newAccessToken);
-                    tokenService.setTokenCookies(res, newAccessToken_HeaderPayload, newAccessToken_Signature, newRefreshToken);
+                    res.locals.isAuth = false;
                     next();
-                });
+                    //return res.status(403).redirect('/users/register');
+                }
+                else
+                {
+                    const payload = {
+                        id: decodedRef.id,
+                        email: decodedRef.email
+                    };
+
+                    res.locals.user = decodedRef;
+                    res.locals.isAuth = true;
+                    Promise.all(
+                        [
+                            tokenService.generateAccessToken(payload),
+                            tokenService.generateRefreshToken(payload)
+                        ]
+                    ).then(([newAccessToken, newRefreshToken]) => 
+                    {
+                        const [newAccessToken_HeaderPayload, newAccessToken_Signature] = tokenService.splitToken(newAccessToken);
+                        tokenService.setTokenCookies(res, newAccessToken_HeaderPayload, newAccessToken_Signature, newRefreshToken);
+                        next();
+                    });
+                }
             });
         }
         else
