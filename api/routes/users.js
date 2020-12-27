@@ -49,11 +49,9 @@ router.post('/register', userController.userCreatePOST);
 
 router.get('/me', middlewares.isAuth, userController.userDetail);
 
-router.post('/me'/*, middlewares.isAuth, middlewares.attachCurrentUser*/, (req, res, next) => 
+router.post('/me', middlewares.isAuth, (req, res, next) => 
 {
-    //console.log(req.cookies);
-    //res.send('hello');
-    //return res.json({ user: req.currentUser }).status(200);
+    //return res.json(res.locals.user).status(200);
 });
 
 router.post('/refresh_token');
@@ -65,5 +63,7 @@ router.get('/logout', (req, res, next) =>
         .clearCookie('refreshToken')
         .redirect('/users/login');
 })
+
+router.get('/administration', middlewares.isAuth, userController.userAdministration);
 
 module.exports = router;
