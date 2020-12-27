@@ -23,7 +23,8 @@ module.exports = function isAuth(req, res, next)
                 {
                     const payload = {
                         id: decodedRef.id,
-                        email: decodedRef.email
+                        email: decodedRef.email,
+                        user_role: decodedRef.user_role
                     };
 
                     res.locals.user = decodedRef;
@@ -50,7 +51,8 @@ module.exports = function isAuth(req, res, next)
             {
                 const payload = {
                     id: decodedAcc.id,
-                    email: decodedAcc.email
+                    email: decodedAcc.email,
+                    user_role: decodedAcc.user_role
                 };
 
                 tokenService.generateRefreshToken(payload)
