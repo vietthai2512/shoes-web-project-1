@@ -43,25 +43,11 @@ router.get('/login', middlewares.isAuth, userController.userLogInGET);
 
 router.post('/login', userController.userLogInPOST);
 
-router.get('/register', userController.userCreateGET);
+router.get('/register', middlewares.isAuth, userController.userCreateGET);
 
 router.post('/register', userController.userCreatePOST);
 
-router.get('/me', middlewares.isAuth, /*middlewares.attachCurrentUser,*/(req, res, next) => 
-{
-    /**if (err)
-    {
-        res.status(401).send(err.message);
-    }
-    //console.log(req.cookies.refreshToken);
-    
-    else */
-    console.log(res.locals.user);
-    res.send('hello');
-    //res.render('me');
-    //console.log(req.cookies);
-    //return res.set('Authorization', 'Bearer ' + req.cookies['access_token']).json({ user: req.currentUser }).status(200);
-});
+router.get('/me', middlewares.isAuth, userController.userDetail);
 
 router.post('/me'/*, middlewares.isAuth, middlewares.attachCurrentUser*/, (req, res, next) => 
 {
@@ -71,5 +57,13 @@ router.post('/me'/*, middlewares.isAuth, middlewares.attachCurrentUser*/, (req, 
 });
 
 router.post('/refresh_token');
+
+router.get('/logout', (req, res, next) =>
+{
+    res.clearCookie('accessToken_HeaderPayload')
+        .clearCookie('accessToken_Signature')
+        .clearCookie('refreshToken')
+        .redirect('/users/login');
+})
 
 module.exports = router;
