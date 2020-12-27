@@ -1,16 +1,33 @@
-const { db } = require('../database');
 const authService = require('../services/authService');
 const tokenService = require('../services/tokenService');
-const { JWT_ACCESS, JWT_REFRESH } = require('../config');
 
-exports.userDetail = function userDetail(req, res, next)
+exports.userAdministration = function (req, res, next)
 {
     if (!res.locals.isAuth)
     {
         res.redirect('/users/login');
     }
     else
-        res.send('TODO: user detail');
+    {
+        if (res.locals.user.user_role === 'admin')
+        {
+            res.send('Welcome to admin page');
+        }
+        else
+        {
+            res.redirect('/users/me');
+        }
+    }
+}
+
+exports.userDetail = function (req, res, next)
+{
+    if (!res.locals.isAuth)
+    {
+        res.redirect('/users/login');
+    }
+    else
+        res.json(res.locals.user).status(200);
 }
 
 exports.userCreateGET = function (req, res, next)
@@ -37,7 +54,7 @@ exports.userCreatePOST = async function (req, res, next)
 
         const createdUser = await authService.signUp(newUser);
 
-        return res.status(201).render('login', { id: createdUser.id });
+        return res.status(201).render('users/login', { id: createdUser.id });
     }
     catch (e)
     {
