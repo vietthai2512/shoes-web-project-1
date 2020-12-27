@@ -5,12 +5,20 @@ const { JWT_ACCESS, JWT_REFRESH } = require('../config');
 
 exports.userDetail = function userDetail(req, res, next)
 {
-    res.send('TODO: user detail');
+    if (!res.locals.isAuth)
+    {
+        res.redirect('/users/login');
+    }
+    else
+        res.send('TODO: user detail');
 }
 
 exports.userCreateGET = function (req, res, next)
 {
-    res.render('register');
+    if (res.locals.isAuth)
+        res.redirect('/users/me');
+    else
+        res.render('users/register');
 }
 
 exports.userCreatePOST = async function (req, res, next)
@@ -33,7 +41,7 @@ exports.userCreatePOST = async function (req, res, next)
     }
     catch (e)
     {
-        res.status(409).render('register', { error: e });
+        res.status(409).render('users/register', { error: e });
         //return next(e);
     }
 }
@@ -43,7 +51,7 @@ exports.userLogInGET = function (req, res, next)
     if (res.locals.isAuth)
         res.redirect('/users/me');
     else
-        res.render('login');
+        res.render('users/login');
 }
 
 exports.userLogInPOST = async function (req, res, next)
@@ -66,7 +74,7 @@ exports.userLogInPOST = async function (req, res, next)
     }
     catch (e)
     {
-        res.render('login', { error: e });
+        res.render('users/login', { error: e });
     }
 }
 
