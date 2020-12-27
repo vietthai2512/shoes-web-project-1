@@ -31,7 +31,7 @@ const id = '77e366c7-7aab-4f46-bc39-77dc502049bd'
 //db.users.update(updateUser);
 //db.users.insert(testUser);
 /* GET users listing. */
-router.get('/login', userController.userLogInGET);
+router.get('/login', middlewares.isAuth, userController.userLogInGET);
 //db.users.insert(testUser).then(result => console.log(`added ${result.id}`));
 //db.users.empty();
 //db.users.delete(id).then(result => console.log(`deleted ${result.id}`));
@@ -47,9 +47,16 @@ router.get('/register', userController.userCreateGET);
 
 router.post('/register', userController.userCreatePOST);
 
-router.get('/me', /*middlewares.isAuth, middlewares.attachCurrentUser,*/(req, res, next) => 
+router.get('/me', middlewares.isAuth, /*middlewares.attachCurrentUser,*/(req, res, next) => 
 {
-    console.log(req.cookies.refreshToken);
+    /**if (err)
+    {
+        res.status(401).send(err.message);
+    }
+    //console.log(req.cookies.refreshToken);
+    
+    else */
+    console.log(res.locals.user);
     res.send('hello');
     //res.render('me');
     //console.log(req.cookies);
@@ -58,8 +65,8 @@ router.get('/me', /*middlewares.isAuth, middlewares.attachCurrentUser,*/(req, re
 
 router.post('/me'/*, middlewares.isAuth, middlewares.attachCurrentUser*/, (req, res, next) => 
 {
-    console.log(req.cookies);
-    res.send('hello');
+    //console.log(req.cookies);
+    //res.send('hello');
     //return res.json({ user: req.currentUser }).status(200);
 });
 
