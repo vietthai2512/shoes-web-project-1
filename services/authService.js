@@ -52,7 +52,8 @@ exports.logIn = async function (user)
         console.log('Correct password');
         const payloadToken = {
             id: userRecord.id,
-            email: user.email
+            email: user.email,
+            user_role: userRecord.user_role
         }
         return [accessToken, refreshToken] = await Promise.all(
             [
