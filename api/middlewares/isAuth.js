@@ -1,17 +1,64 @@
-const jwt = require('express-jwt');
+const jwt = require('jsonwebtoken');
 const { JWT_ACCESS, JWT_REFRESH } = require('../../config');
+const tokenService = require('../../services/tokenService');
+const set = require('lodash.set');
 
-const getTokenFromCookies = (req) => 
+module.exports = function isAuth(req, res, next)
 {
-    //if(req.cookies)
-}
+    const accessToken = req.cookies.accessToken_HeaderPayload + req.cookies.accessToken_Signature
+    const refreshToken = req.cookies.refreshToken;
 
-module.exports = jwt(
+    jwt.verify(accessToken, JWT_ACCESS.SECRET, { algorithms: JWT_ACCESS.ALGORITHM }, (errAcc, decodedAcc) => 
     {
-        secret: JWT_ACCESS.SECRET,
-        algorithms: [JWT_ACCESS.ALGORITHM],
-        requestProperty: 'token',
-        getToken: getTokenFromCookies
-    }
-);
+        if (errAcc)
+        {
+            jwt.verify(refreshToken, JWT_REFRESH.SECRET, { algorithms: JWT_REFRESH.ALGORITHM }, (errRef, decodedRef) =>
+            {
+                if (errRef) 
+                {
+                    return res.status(403).redirect('/users/login');
+                }
 
+                const payload = {
+                    id: decodedRef.id,
+                    email: decodedRef.email
+                };
+
+                res.locals.user = decodedRef;
+                res.locals.isAuth = true;
+                Promise.all(
+                    [
+                        tokenService.generateAccessToken(payload),
+                        tokenService.generateRefreshToken(payload)
+                    ]
+                ).then(([newAccessToken, newRefreshToken]) => 
+                {
+                    const [newAccessToken_HeaderPayload, newAccessToken_Signature] = tokenService.splitToken(newAccessToken);
+                    tokenService.setTokenCookies(res, newAccessToken_HeaderPayload, newAccessToken_Signature, newRefreshToken);
+                    next();
+                });
+            });
+        }
+        else
+        {
+            res.locals.isAuth = true;
+            res.locals.user = decodedAcc;
+            if (!refreshToken)
+            {
+                const payload = {
+                    id: decodedAcc.id,
+                    email: decodedAcc.email
+                };
+
+                tokenService.generateRefreshToken(payload)
+                    .then((newRefreshToken) => 
+                    {
+                        tokenService.setTokenCookies(res, null, null, newRefreshToken);
+                        next();
+                    });
+            }
+            else
+                next();
+        }
+    });
+}
