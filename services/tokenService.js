@@ -32,11 +32,11 @@ exports.setTokenCookies = function (res, valHeaderPayload = null, valSignature =
     // Set Access Token
     if (valHeaderPayload && valSignature)
     {
-        res.cookie('accessToken_HeaderPayload', valHeaderPayload, { expires: new Date(Date.now() + JWT_ACCESS.EXP), maxAge: JWT_ACCESS.EXP/*, secure: true, /*sameSite: true*/ })
-            .cookie('accessToken_Signature', valSignature, { expires: new Date(Date.now() + JWT_ACCESS.EXP), maxAge: JWT_ACCESS.EXP/*, secure: true/*, sameSite: true*/, httpOnly: true });
+        res.cookie('accessToken_HeaderPayload', valHeaderPayload, { expires: new Date(Date.now() + JWT_ACCESS.EXP), maxAge: JWT_ACCESS.EXP, secure: true, /*sameSite: true*/ })
+            .cookie('accessToken_Signature', valSignature, { expires: new Date(Date.now() + JWT_ACCESS.EXP), maxAge: JWT_ACCESS.EXP, secure: true/*, sameSite: true*/, httpOnly: true });
     }
 
     // Set Refresh Token
     if (valRefreshToken)
-        res.cookie('refreshToken', valRefreshToken, { expires: new Date(Date.now() + JWT_REFRESH.EXP), maxAge: JWT_REFRESH.EXP/*, secure: true/*, sameSite: true*/, httpOnly: true });
+        res.cookie('refreshToken', valRefreshToken, { expires: new Date(Date.now() + JWT_REFRESH.EXP), maxAge: JWT_REFRESH.EXP, secure: true/*, sameSite: true*/, httpOnly: true });
 }
