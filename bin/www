@@ -7,19 +7,35 @@
 const app = require('../app');
 const debug = require('debug')('web-project-1:server');
 const http = require('http');
-const config = require('../config')
+const https = require('https');
+const config = require('../config');
+const fs = require('fs');
+
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(config.PORT || '3000');
+const port = normalizePort(config.PORT || '3000');
 app.set('port', port);
+
+/**
+ * SSL options
+ */
+const sslOptions = {
+  key: fs.readFileSync('example.com+5-key.pem'),
+  cert: fs.readFileSync('example.com+5.pem')
+};
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
+
+/**
+ * Create HTTPS server
+ */
+const serverHTTPS = https.createServer(sslOptions, app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -28,6 +44,10 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+serverHTTPS.listen(443);
+serverHTTPS.on('error', onError);
+serverHTTPS.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
