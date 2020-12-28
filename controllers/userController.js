@@ -1,3 +1,4 @@
+const { db } = require('../database');
 const authService = require('../services/authService');
 const tokenService = require('../services/tokenService');
 
@@ -20,14 +21,18 @@ exports.userAdministration = function (req, res, next)
     }
 }
 
-exports.userDetail = function (req, res, next)
+exports.userDetail = async function (req, res, next)
 {
     if (!res.locals.isAuth)
     {
         res.redirect('/users/login');
     }
     else
-        res.json(res.locals.user).status(200);
+    {
+        const userDetail = await db.users.findByID(res.locals.user.id);
+        Reflect.deleteProperty(userDetail, 'password');
+        res.json(userDetail).status(200);
+    }
 }
 
 exports.userCreateGET = function (req, res, next)
