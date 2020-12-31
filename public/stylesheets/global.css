@@ -1,3 +1,8 @@
+* {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
 html,
 body {
 	position: relative;
@@ -7,25 +12,33 @@ body {
 }
 
 body {
+	display: flex;
+	flex-direction: column;
 	color: white;
 	background: black;
 	margin: 0;
 	padding: 8px;
 	box-sizing: border-box;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-		Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 label {
 	display: block;
 }
 
+footer {
+	margin-top: auto;
+}
+
 h1,
 main,
-#div_button,
 a,
 footer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+a {
+	text-decoration: none;
+	width: auto;
 }

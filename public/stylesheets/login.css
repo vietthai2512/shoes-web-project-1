@@ -3,6 +3,12 @@ form {
 	max-width: 500px;
 }
 
+#div_button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 .field {
 	width: 100%;
 	position: relative;
