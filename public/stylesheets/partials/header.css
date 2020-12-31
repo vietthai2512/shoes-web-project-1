@@ -1,0 +1,50 @@
+header {
+	height: 3rem;
+	background: #232f3e;
+}
+
+#nav-logo a {
+	color: white;
+	font: 2rem bold;
+	text-transform: lowercase;
+	letter-spacing: 0.1rem;
+	width: auto;
+}
+
+#nav-tools {
+	display: flex;
+	justify-content: space-around;
+}
+
+#nav-tools a {
+}
+
+#nav-belt .nav-right {
+	flex: 25%;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+}
+
+#nav-belt .nav-fill {
+	flex: 50%;
+	display: flex;
+	flex-flow: column;
+}
+
+#nav-search {
+	display: flex;
+	flex-flow: column;
+}
+
+#nav-search form {
+	display: flex;
+}
+
+#nav-belt div:first-child {
+	flex: 25%;
+}
+
+#nav-belt {
+	display: flex;
+}
