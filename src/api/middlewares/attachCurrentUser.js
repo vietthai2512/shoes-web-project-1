@@ -1,4 +1,4 @@
-const { db } = require('../../database')
+const { db } = require('../../database');
 
 /**
  * Attach user to req.currentUser
@@ -27,6 +27,6 @@ const attachCurrentUser = async function (req, res, next)
     {
         return next(e);
     }
-}
+};
 
 module.exports = attachCurrentUser;

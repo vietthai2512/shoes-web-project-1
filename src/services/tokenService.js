@@ -4,12 +4,12 @@ const { JWT_ACCESS, JWT_REFRESH } = require('../config');
 exports.generateAccessToken = async function (payload)
 {
     return await jwt.sign(payload, JWT_ACCESS.SECRET, { algorithm: JWT_ACCESS.ALGORITHM, expiresIn: JWT_ACCESS.EXP });
-}
+};
 
 exports.generateRefreshToken = async function (payload)
 {
     return await jwt.sign(payload, JWT_REFRESH.SECRET, { algorithm: JWT_REFRESH.ALGORITHM, expiresIn: JWT_REFRESH.EXP });
-}
+};
 
 exports.splitToken = function (token)
 {
@@ -18,7 +18,7 @@ exports.splitToken = function (token)
     const token_Signature = token.slice(dotLastIndex);
 
     return [token_HeaderPayload, token_Signature];
-}
+};
 
 /**
  * Set JWT Cookies to res
@@ -39,4 +39,4 @@ exports.setTokenCookies = function (res, valHeaderPayload = null, valSignature =
     // Set Refresh Token
     if (valRefreshToken)
         res.cookie('refreshToken', valRefreshToken, { expires: new Date(Date.now() + JWT_REFRESH.EXP), maxAge: JWT_REFRESH.EXP, secure: true/*, sameSite: true*/, httpOnly: true });
-}
+};

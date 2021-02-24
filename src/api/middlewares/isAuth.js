@@ -4,7 +4,7 @@ const tokenService = require('../../services/tokenService');
 
 module.exports = function isAuth(req, res, next)
 {
-    const accessToken = req.cookies.accessToken_HeaderPayload + req.cookies.accessToken_Signature
+    const accessToken = req.cookies.accessToken_HeaderPayload + req.cookies.accessToken_Signature;
     const refreshToken = req.cookies.refreshToken;
 
     jwt.verify(accessToken, JWT_ACCESS.SECRET, { algorithms: JWT_ACCESS.ALGORITHM }, (errAcc, decodedAcc) => 
@@ -66,4 +66,4 @@ module.exports = function isAuth(req, res, next)
                 next();
         }
     });
-}
+};

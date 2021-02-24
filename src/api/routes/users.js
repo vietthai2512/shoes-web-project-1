@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { db, pgp } = require('../../database');
-const userController = require('../../controllers/userController');
+const userController = require('../../../controllers/userController');
 const middlewares = require('../middlewares');
 
 const testUser =
@@ -23,7 +23,7 @@ const updateUser =
     middlename: 'tesst',
     user_role: 'customer'
 };
-const id = '77e366c7-7aab-4f46-bc39-77dc502049bd'
+const id = '77e366c7-7aab-4f46-bc39-77dc502049bd';
 //const condition = pgp.as.format(' WHERE id = ${id}', updateUser);
 //const query = pgp.helpers.update(updateUser, ['?id', 'email', 'password', 'middlename'], 'users') + condition;
 //console.log(query);
@@ -62,7 +62,7 @@ router.get('/logout', (req, res, next) =>
         .clearCookie('accessToken_Signature')
         .clearCookie('refreshToken')
         .redirect('/users/login');
-})
+});
 
 router.get('/administration', middlewares.isAuth, userController.userAdministration);
 

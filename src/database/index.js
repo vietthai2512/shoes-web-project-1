@@ -9,7 +9,7 @@ const initOptions =
     {
         obj.users = new Users(obj, pgp);
     }
-}
+};
 
 const pgp = pgPromise(initOptions);
 const db = pgp(PG_CONNECTION);
