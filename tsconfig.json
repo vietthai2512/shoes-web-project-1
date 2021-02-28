@@ -5,8 +5,8 @@
             "ESNext"
         ],
         "typeRoots": [
-            "./node_modules/@types",
-            "./src/types"
+            "node_modules/@types",
+            "src/types"
         ],
         "module": "CommonJS",
         "moduleResolution": "node",
@@ -14,11 +14,19 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": true,
         "sourceMap": true,
         "outDir": "dist",
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "node_modules/*",
+                "src/types/*"
+            ]
+        }
     },
     "include": [
-        "./src/**/*"
+        "src/**/*"
     ],
     "exclude": [
         "node_modules"
