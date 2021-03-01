@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { Algorithm } from 'jsonwebtoken';
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -19,13 +20,13 @@ export const PG_CONNECTION = {
 };
 
 export const JWT_ACCESS = {
-    SECRET: process.env.ACCESS_TOKEN_SECRET,
-    EXP: process.env.ACCESS_TOKEN_EXP,
-    ALGORITHM: process.env.JWT_ALGORITHM
+    SECRET: process.env.ACCESS_TOKEN_SECRET as string,
+    EXP: parseInt(process.env.ACCESS_TOKEN_EXP!, 10),
+    ALGORITHM: process.env.JWT_ALGORITHM as Algorithm
 };
 
 export const JWT_REFRESH = {
-    SECRET: process.env.REFRESH_TOKEN_SECRET,
-    EXP: process.env.REFRESH_TOKEN_EXP,
-    ALGORITHM: process.env.JWT_ALGORITHM
+    SECRET: process.env.REFRESH_TOKEN_SECRET as string,
+    EXP: parseInt(process.env.REFRESH_TOKEN_EXP!, 10),
+    ALGORITHM: process.env.JWT_ALGORITHM as Algorithm
 };
