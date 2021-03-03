@@ -74,6 +74,7 @@ export class UsersRepo
         return this.db.oneOrNone(usersSQL.find, { table: 'users', column: 'email', columnData: email });
     }
 
+    // Find an user by ID
     async findByID(id: string): Promise<User | null>
     {
         return this.db.oneOrNone(usersSQL.find, { table: 'users', column: 'id', columnData: id });
