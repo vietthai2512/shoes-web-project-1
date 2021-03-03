@@ -26,7 +26,7 @@ export class UsersRepo
     }
 
     // Insert a new user, and return the new object
-    async insert(newUser: object): Promise<User>
+    async insert(newUser: User): Promise<User>
     {
         return this.db.one(this.pgp.helpers.insert(newUser, cs.insert) + 'RETURNING id');
     }
@@ -56,7 +56,7 @@ export class UsersRepo
     }
 
     // Update user's infomation 
-    async update(userUpdate: object): Promise<User>
+    async update(userUpdate: User): Promise<User>
     {
         const query = this.pgp.helpers.update(userUpdate, cs.insert) + this.pgp.as.format(' WHERE id = ${id} RETURNING *', userUpdate);
         return this.db.one(query);
@@ -100,10 +100,10 @@ export class UsersRepo
                 [
                     optional('email'),
                     optional('password'),
-                    optional('firstname'),
-                    optional('middlename'),
-                    optional('lastname'),
-                    optional('phonenumber'),
+                    optional('first_name'),
+                    optional('middle_name'),
+                    optional('last_name'),
+                    optional('phone_number'),
                     optional('user_role')
                 ],
                 { table }
