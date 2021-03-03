@@ -2,7 +2,7 @@ import { Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { JWT_ACCESS, JWT_REFRESH } from '../config';
 
-export async function generateAccessTokenasync(payload: object)
+export async function generateAccessToken(payload: object)
 {
     return jwt.sign(payload, JWT_ACCESS.SECRET, { algorithm: JWT_ACCESS.ALGORITHM, expiresIn: JWT_ACCESS.EXP });
 }
