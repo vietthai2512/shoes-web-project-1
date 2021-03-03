@@ -9,8 +9,8 @@ export async function signUp(newUser: User)
     {
         let [hashedPassword, existsEmail] = await Promise.all(
             [
-                argon2.hash(newUser.password, { type: argon2.argon2id }),
-                db.users.existsEmail(newUser.email)
+                argon2.hash(newUser.password!, { type: argon2.argon2id }),
+                db.users.existsEmail(newUser.email!)
             ]
         );
 
@@ -39,14 +39,14 @@ export async function signUp(newUser: User)
 
 export async function logIn(user: User)
 {
-    const userRecord = await db.users.findByEmail(user.email);
+    const userRecord = await db.users.findByEmail(user.email!);
 
     if (userRecord === null)
     {
         throw new Error('Your email or password was incorrect.');
     }
 
-    if (await argon2.verify(userRecord.password, user.password))
+    if (await argon2.verify(userRecord.password!, user.password!))
     {
         console.log('Correct password');
         const payloadToken = {
