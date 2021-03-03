@@ -12,11 +12,11 @@ if (envFound.error)
 export const PORT = parseInt(process.env.PORT!, 10);
 
 export const PG_CONNECTION = {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
+    host: process.env.DB_HOST as string,
+    port: parseInt(process.env.DB_PORT!, 10),
+    database: process.env.DB_NAME as string,
+    user: process.env.DB_USER as string,
+    password: process.env.DB_PASSWORD as string
 };
 
 export const JWT_ACCESS = {
