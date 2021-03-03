@@ -3,10 +3,10 @@ export interface User
     id: string,
     email: string,
     password: string,
-    firstName: string,
-    lastName: string,
-    middleName?: string,
-    phoneNumber: string,
-    joinDate: Date,
-    userRoles: string;
+    first_name?: string,
+    last_name?: string,
+    middle_name?: string,
+    phone_number?: string,
+    join_date?: Date,
+    user_role: string;
 }
