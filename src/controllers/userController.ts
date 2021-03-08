@@ -5,17 +5,17 @@ import { setTokenCookies, splitToken } from '../services/tokenService';
 
 export const userAdministration = (req: Request, res: Response, next: NextFunction) => 
 {
-    if (!res.locals.isAuth)
+    if (!res.locals.isAuth) 
     {
         res.redirect('/users/login');
     }
-    else
+    else 
     {
-        if (res.locals.user.user_role === 'admin')
+        if (res.locals.user.user_role === 'admin') 
         {
             res.send('Welcome to admin page');
         }
-        else
+        else 
         {
             res.redirect('/users/me');
         }
@@ -24,32 +24,30 @@ export const userAdministration = (req: Request, res: Response, next: NextFuncti
 
 export const userDetail = async (req: Request, res: Response, next: NextFunction) => 
 {
-    if (!res.locals.isAuth)
+    if (!res.locals.isAuth) 
     {
         res.redirect('/users/login');
     }
-    else
+    else 
     {
         const userDetail = await db.users.findByID(res.locals.user.id);
+        // eslint-disable-next-line @typescript-eslint/ban-types
         Reflect.deleteProperty(userDetail as object, 'password');
         res.json(userDetail).status(200);
     }
 };
 
-export const userCreateGET = async (req: Request, res: Response, next: NextFunction) =>
+export const userCreateGET = async (req: Request, res: Response, next: NextFunction) => 
 {
-    if (res.locals.isAuth)
-        res.redirect('/users/me');
-    else
-        res.render('users/register');
+    if (res.locals.isAuth) res.redirect('/users/me');
+    else res.render('users/register');
 };
 
-export const userCreatePOST = async (req: Request, res: Response, next: NextFunction) =>
+export const userCreatePOST = async (req: Request, res: Response, next: NextFunction) => 
 {
-    try
+    try 
     {
-        const newUser =
-        {
+        const newUser = {
             first_name: req.body.firstname as string,
             middle_name: req.body.middlename as string,
             last_name: req.body.lastname as string,
@@ -62,29 +60,26 @@ export const userCreatePOST = async (req: Request, res: Response, next: NextFunc
 
         return res.status(201).render('users/login', { id: createdUser.id });
     }
-    catch (e)
+    catch (e) 
     {
         res.status(409).render('users/register', { error: e });
         //return next(e);
     }
 };
 
-export const userLogInGET = function (req: Request, res: Response, next: NextFunction)
+export const userLogInGET = function (req: Request, res: Response, next: NextFunction) 
 {
-    if (res.locals.isAuth)
-        res.redirect('/users/me');
-    else
-        res.render('users/login');
+    if (res.locals.isAuth) res.redirect('/users/me');
+    else res.render('users/login');
 };
 
-export const userLogInPOST = async function (req: Request, res: Response, next: NextFunction)
+export const userLogInPOST = async function (req: Request, res: Response, next: NextFunction) 
 {
-    try
+    try 
     {
-        const user =
-        {
+        const user = {
             email: req.body.email as string,
-            password: req.body.password as string
+            password: req.body.password as string,
         };
 
         const [accessToken, refreshToken] = await logIn(user);
@@ -95,28 +90,28 @@ export const userLogInPOST = async function (req: Request, res: Response, next: 
         //res.render('login', { success: `Correct password. Your access token is ${accessToken}, your refresh token is ${refreshToken}` });
         res.redirect('/users/me');
     }
-    catch (e)
+    catch (e) 
     {
         res.render('users/login', { error: e });
     }
 };
 
-export const userUpdateGET = function (req: Request, res: Response, next: NextFunction)
+export const userUpdateGET = function (req: Request, res: Response, next: NextFunction) 
 {
     res.send('TODO: user update GET');
 };
 
-export const userUpdatePOST = function (req: Request, res: Response, next: NextFunction)
+export const userUpdatePOST = function (req: Request, res: Response, next: NextFunction) 
 {
     res.send('TODO: user update POST');
 };
 
-export const userDeleteGET = function (req: Request, res: Response, next: NextFunction)
+export const userDeleteGET = function (req: Request, res: Response, next: NextFunction) 
 {
     res.send('TODO: user delete GET');
 };
 
-export const userDeletePOST = function (req: Request, res: Response, next: NextFunction)
+export const userDeletePOST = function (req: Request, res: Response, next: NextFunction) 
 {
     res.send('TODO: user delete POST');
 };

@@ -5,16 +5,16 @@ import { IExtensions, UsersRepo } from './repos';
 type ExtendedProtocol = IDatabase<IExtensions> & IExtensions;
 
 // pg-promise initialization options:
-const initOptions: IInitOptions<IExtensions> =
-{
+const initOptions: IInitOptions<IExtensions> = {
     capSQL: true,
 
     // Extending the database protocol with our custom repositories;
     // API: http://vitaly-t.github.io/pg-promise/global.html#event:extend
-    extend(obj: ExtendedProtocol, dc: any)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    extend(obj: ExtendedProtocol, dc: unknown) 
     {
         obj.users = new UsersRepo(obj, pgp);
-    }
+    },
 };
 
 // Initializing the library:

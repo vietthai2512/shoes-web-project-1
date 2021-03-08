@@ -3,7 +3,7 @@ import { User } from '../models';
 import { IDatabase, IMain, IColumnConfig, FormattingFilter, ColumnSet } from 'pg-promise';
 
 let cs: {
-    insert?: ColumnSet,
+    insert?: ColumnSet;
     update?: ColumnSet;
 };
 
@@ -20,79 +20,83 @@ export class UsersRepo
      * Library's root, if ever needed, like to access 'helpers'
      * or other namespaces available from the root.
      */
-    constructor(private db: IDatabase<any>, private pgp: IMain)
+    constructor(private db: IDatabase<unknown>, private pgp: IMain) 
     {
         this.createColumnSets(pgp);
     }
 
     // Insert a new user, and return the new object
-    async insert(newUser: User): Promise<User>
+    async insert(newUser: User): Promise<User> 
     {
         return this.db.one(this.pgp.helpers.insert(newUser, cs.insert) + 'RETURNING id');
     }
 
     // Remove all records from the table
-    async empty(): Promise<null>
+    async empty(): Promise<null> 
     {
         return this.db.none(usersSQL.empty);
     }
 
     // Delete an user by ID, return that ID
-    async delete(userID: string): Promise<string>
+    async delete(userID: string): Promise<string> 
     {
         return this.db.one(usersSQL.delete, userID);
     }
 
     // Get all user records
-    async all(): Promise<User[]>
+    async all(): Promise<User[]> 
     {
         return this.db.any(usersSQL.all, { table: 'users' });
     }
 
     // Count the total number of users
-    async count(): Promise<number>
+    async count(): Promise<number> 
     {
-        return this.db.one(usersSQL.count, { table: 'users' }, a => +a.count);
+        return this.db.one(usersSQL.count, { table: 'users' }, (a) => +a.count);
     }
 
-    // Update user's infomation 
-    async update(userUpdate: User): Promise<User>
+    // Update user's infomation
+    async update(userUpdate: User): Promise<User> 
     {
-        const query = this.pgp.helpers.update(userUpdate, cs.insert) + this.pgp.as.format(' WHERE id = ${id} RETURNING *', userUpdate);
+        const query =
+            this.pgp.helpers.update(userUpdate, cs.insert) +
+            this.pgp.as.format(' WHERE id = ${id} RETURNING *', userUpdate);
         return this.db.one(query);
     }
 
     // Check if an email is already registered
-    async existsEmail(email: string): Promise<boolean>
+    async existsEmail(email: string): Promise<boolean> 
     {
-        return this.db.one(usersSQL.exists, { column: 'email', table: 'users', columnData: email }).then(result => result.exists);
+        return this.db
+            .one(usersSQL.exists, { column: 'email', table: 'users', columnData: email })
+            .then((result) => result.exists);
     }
 
     // Find an user by email
-    async findByEmail(email: string): Promise<User | null>
+    async findByEmail(email: string): Promise<User | null> 
     {
         return this.db.oneOrNone(usersSQL.find, { table: 'users', column: 'email', columnData: email });
     }
 
     // Find an user by ID
-    async findByID(id: string): Promise<User | null>
+    async findByID(id: string): Promise<User | null> 
     {
         return this.db.oneOrNone(usersSQL.find, { table: 'users', column: 'id', columnData: id });
     }
 
-    private createColumnSets(pgp: IMain)
+    private createColumnSets(pgp: IMain) 
     {
-        function optional(name: string, mod?: FormattingFilter): IColumnConfig
+        function optional(name: string, mod?: FormattingFilter): IColumnConfig 
         {
             return {
                 name: name,
                 def: { toPostgres: () => 'DEFAULT', rawType: true },
                 mod: mod,
-                skip: c => !c.exists
+                skip: (c) => !c.exists,
             };
         }
 
-        if (!cs.insert)
+        if (!cs.insert) 
         {
             const table = new pgp.helpers.TableName({ table: 'users', schema: 'public' });
 
@@ -104,11 +108,12 @@ export class UsersRepo
                     optional('middle_name'),
                     optional('last_name'),
                     optional('phone_number'),
-                    optional('user_role')
+                    optional('user_role'),
                 ],
-                { table }
+                { table },
             );
             cs.update = cs.insert.extend(['?id']);
         }
+        return cs;
     }
 }

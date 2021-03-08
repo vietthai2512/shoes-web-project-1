@@ -1,4 +1,4 @@
-import express, { Errback, ErrorRequestHandler, NextFunction, Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 import createError from 'http-errors';
 import path from 'path';
@@ -6,7 +6,7 @@ import logger from 'morgan';
 import cors from 'cors';
 import routes from '../api/routes';
 
-export default (app: express.Application) =>
+export default (app: express.Application): void => 
 {
     // Useful if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
     // It shows the real origin IP in the heroku or Cloudwatch logs
@@ -25,13 +25,13 @@ export default (app: express.Application) =>
     app.use('/', routes());
 
     // catch 404 and forward to error handler
-    app.use(function (req, res, next)
+    app.use(function (req, res, next) 
     {
         next(createError(404));
     });
 
     // error handler
-    app.use(function (err: { message: any; status: any; }, req: Request, res: Response, next: NextFunction)
+    app.use(function (err: { message: string; status: number; }, req: Request, res: Response, next: NextFunction) 
     {
         // set locals, only providing error in development
         res.locals.message = err.message;

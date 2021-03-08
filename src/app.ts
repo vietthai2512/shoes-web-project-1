@@ -9,30 +9,31 @@ async function startServer()
 {
     const app = express();
 
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     await require('./loaders').default(app);
 
     /**
-    * Get port from environment and store in Express.
-    */
+     * Get port from environment and store in Express.
+     */
     const port = config.PORT || 5050;
 
     /**
-    * SSL options
-    */
+     * SSL options
+     */
     const sslOptions = {
         key: fs.readFileSync('key.pem'),
-        cert: fs.readFileSync('cert.pem')
+        cert: fs.readFileSync('cert.pem'),
     };
 
     /**
-    * Create HTTP & HTTPS server.
-    */
+     * Create HTTP & HTTPS server.
+     */
     const server = http.createServer(app);
     const serverHTTPS = https.createServer(sslOptions, app);
 
     /**
-    * Listen on provided port, on all network interfaces.
-    */
+     * Listen on provided port, on all network interfaces.
+     */
 
     server.listen(port);
     server.on('error', onError);
@@ -43,18 +44,16 @@ async function startServer()
     serverHTTPS.on('listening', onListeningHTTPS);
 
     /**
-    * Event listener for HTTP server "error" event.
-    */
-    function onError(error: Error & { syscall: string; code: any; })
+     * Event listener for HTTP server "error" event.
+     */
+    function onError(error: Error & { syscall: string; code: string; })
     {
         if (error.syscall !== 'listen')
         {
             throw error;
         }
 
-        var bind = typeof port === 'string'
-            ? 'Pipe ' + port
-            : 'Port ' + port;
+        const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
         // handle specific listen errors with friendly messages
         switch (error.code)
@@ -73,23 +72,19 @@ async function startServer()
     }
 
     /**
-    * Event listener for HTTP server "listening" event.
-    */
+     * Event listener for HTTP server "listening" event.
+     */
     function onListening()
     {
-        var addr = server.address();
-        var bind = typeof addr === 'string'
-            ? 'pipe ' + addr
-            : 'port ' + addr!.port;
+        const addr = server.address();
+        const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr?.port;
         console.log('HTTP Server: Listening on ' + bind);
     }
 
     function onListeningHTTPS()
     {
-        var addr = serverHTTPS.address();
-        var bind = typeof addr === 'string'
-            ? 'pipe ' + addr
-            : 'port ' + addr!.port;
+        const addr = serverHTTPS.address();
+        const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr?.port;
         console.log('HTTPS Server: Listening on ' + bind);
     }
 }

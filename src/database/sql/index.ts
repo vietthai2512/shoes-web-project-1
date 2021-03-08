@@ -6,10 +6,9 @@ function sql(file: string): QueryFile
     const fullPath = joinPath(__dirname, file);
 
     const options: IQueryFileOptions = {
-
         // minifying the SQL is always advised;
         // see also option 'compress' in the API;
-        minify: true
+        minify: true,
 
         // See also property 'params' for two-step template formatting
     };
@@ -33,5 +32,5 @@ export const users = {
     all: sql('common/all.sql'),
     count: sql('common/count.sql'),
     exists: sql('common/exists.sql'),
-    find: sql('common/find.sql')
+    find: sql('common/find.sql'),
 };

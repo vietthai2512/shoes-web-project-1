@@ -3,24 +3,22 @@ import middlewares from '../middlewares';
 import * as userController from '../../controllers/userController';
 import { User } from '../../database/models';
 
-const testUser: User =
-{
+const testUser: User = {
     email: 'newnewnewuser@gmail.com',
     password: '12345',
     first_name: 'new',
     middle_name: '',
     last_name: 'User',
     phone_number: '01123',
-    user_role: 'admin'
+    user_role: 'admin',
 };
 
-const updateUser: User =
-{
+const updateUser: User = {
     id: 'af599bd2-064d-4dd2-acb2-8eff4b5f41bb',
     email: 'ver@gmail.com',
     password: '2356789',
     middle_name: 'tesst',
-    user_role: 'customer'
+    user_role: 'customer',
 };
 
 const route = Router();
@@ -46,7 +44,7 @@ export default (app: Router) =>
 
     route.post('/refresh_token');
 
-    route.get('/logout', (req, res, next) =>
+    route.get('/logout', (req, res, next) => 
     {
         res.clearCookie('accessToken_HeaderPayload')
             .clearCookie('accessToken_Signature')

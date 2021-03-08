@@ -6,8 +6,4 @@ interface IExtensions
     users: UsersRepo;
 }
 
-export
-{
-    IExtensions,
-    UsersRepo
-};
+export { IExtensions, UsersRepo };

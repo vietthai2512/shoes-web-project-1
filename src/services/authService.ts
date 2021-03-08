@@ -3,25 +3,22 @@ import { User } from '../database/models';
 import { db } from '../database';
 import { generateAccessToken, generateRefreshToken } from './tokenService';
 
-export async function signUp(newUser: User)
+export async function signUp(newUser: User): Promise<User>
 {
-    try
+    try 
     {
-        let [hashedPassword, existsEmail] = await Promise.all(
-            [
-                argon2.hash(newUser.password!, { type: argon2.argon2id }),
-                db.users.existsEmail(newUser.email!)
-            ]
-        );
+        const [hashedPassword, existsEmail] = await Promise.all([
+            argon2.hash(newUser.password!, { type: argon2.argon2id }),
+            db.users.existsEmail(newUser.email!),
+        ]);
 
-        if (existsEmail)
-            throw new Error('This email address is not available. Choose a different email address.');
+        if (existsEmail) throw new Error('This email address is not available. Choose a different email address.');
 
         newUser.password = hashedPassword;
 
         const userRecord = await db.users.insert(newUser);
 
-        if (!userRecord)
+        if (!userRecord) 
         {
             throw new Error('User cannot be created.');
         }
@@ -31,39 +28,36 @@ export async function signUp(newUser: User)
 
         return createdUser;
     }
-    catch (e)
+    catch (e) 
     {
         throw e;
     }
 }
 
-export async function logIn(user: User)
+export async function logIn(user: User) 
 {
     const userRecord = await db.users.findByEmail(user.email!);
 
-    if (userRecord === null)
+    if (userRecord === null) 
     {
         throw new Error('Your email or password was incorrect.');
     }
 
-    if (await argon2.verify(userRecord.password!, user.password!))
+    if (await argon2.verify(userRecord.password!, user.password!)) 
     {
         console.log('Correct password');
         const payloadToken = {
             id: userRecord.id,
             email: user.email,
-            user_role: userRecord.user_role
+            user_role: userRecord.user_role,
         };
 
-        let [accessToken, refreshToken] = await Promise.all(
-            [
-                generateAccessToken(payloadToken),
-                generateRefreshToken(payloadToken)
-            ]
-        );
+        const [accessToken, refreshToken] = await Promise.all([
+            generateAccessToken(payloadToken),
+            generateRefreshToken(payloadToken),
+        ]);
 
         return [accessToken, refreshToken];
     }
-    else
-        throw new Error('Your email or password was incorrect.');
+    else throw new Error('Your email or password was incorrect.');
 }
