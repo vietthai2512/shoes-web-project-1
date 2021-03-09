@@ -7,7 +7,7 @@ export const userAdministration = (req: Request, res: Response, next: NextFuncti
 {
     if (!res.locals.isAuth) 
     {
-        res.redirect('/users/login');
+        res.redirect('/user/login');
     }
     else 
     {
@@ -17,7 +17,7 @@ export const userAdministration = (req: Request, res: Response, next: NextFuncti
         }
         else 
         {
-            res.redirect('/users/me');
+            res.redirect('/user/me');
         }
     }
 };
@@ -26,7 +26,7 @@ export const userDetail = async (req: Request, res: Response, next: NextFunction
 {
     if (!res.locals.isAuth) 
     {
-        res.redirect('/users/login');
+        res.redirect('/user/login');
     }
     else 
     {
@@ -39,8 +39,8 @@ export const userDetail = async (req: Request, res: Response, next: NextFunction
 
 export const userCreateGET = async (req: Request, res: Response, next: NextFunction) => 
 {
-    if (res.locals.isAuth) res.redirect('/users/me');
-    else res.render('users/register');
+    if (res.locals.isAuth) res.redirect('/user/me');
+    else res.render('user/register');
 };
 
 export const userCreatePOST = async (req: Request, res: Response, next: NextFunction) => 
@@ -58,19 +58,19 @@ export const userCreatePOST = async (req: Request, res: Response, next: NextFunc
 
         const createdUser = await signUp(newUser);
 
-        return res.status(201).render('users/login', { id: createdUser.id });
+        return res.status(201).render('user/login', { id: createdUser.id });
     }
     catch (e) 
     {
-        res.status(409).render('users/register', { error: e });
+        res.status(409).render('user/register', { error: e });
         //return next(e);
     }
 };
 
 export const userLogInGET = function (req: Request, res: Response, next: NextFunction) 
 {
-    if (res.locals.isAuth) res.redirect('/users/me');
-    else res.render('users/login');
+    if (res.locals.isAuth) res.redirect('/user/me');
+    else res.render('user/login');
 };
 
 export const userLogInPOST = async function (req: Request, res: Response, next: NextFunction) 
@@ -88,11 +88,11 @@ export const userLogInPOST = async function (req: Request, res: Response, next: 
         res.status(200);
         setTokenCookies(res, accessToken_HeaderPayload, accessToken_Signature, refreshToken);
         //res.render('login', { success: `Correct password. Your access token is ${accessToken}, your refresh token is ${refreshToken}` });
-        res.redirect('/users/me');
+        res.redirect('/user/me');
     }
     catch (e) 
     {
-        res.render('users/login', { error: e });
+        res.render('user/login', { error: e });
     }
 };
 

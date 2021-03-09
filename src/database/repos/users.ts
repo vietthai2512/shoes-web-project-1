@@ -2,10 +2,13 @@ import { users as usersSQL } from '../sql';
 import { User } from '../models';
 import { IDatabase, IMain, IColumnConfig, FormattingFilter, ColumnSet } from 'pg-promise';
 
-let cs: {
+interface csInterface
+{
     insert?: ColumnSet;
     update?: ColumnSet;
-};
+}
+
+const cs = {} as csInterface;
 
 export class UsersRepo 
 {

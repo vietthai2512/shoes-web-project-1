@@ -49,7 +49,7 @@ export default (app: Router) =>
         res.clearCookie('accessToken_HeaderPayload')
             .clearCookie('accessToken_Signature')
             .clearCookie('refreshToken')
-            .redirect('/users/login');
+            .redirect('/user/login');
     });
 
     route.get('/administration', middlewares.isAuth, userController.userAdministration);
