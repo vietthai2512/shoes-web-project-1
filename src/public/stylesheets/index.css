@@ -7,7 +7,7 @@ Hero
 	min-height: 100vh;
 	/* margin-top: -6rem; */
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url(../images/main-bcg.jpeg) center/cover;
+		url(../images/index/main-bcg.jpeg) center/cover;
 	display: grid;
 	place-items: center;
 	color: var(--clr-white);
