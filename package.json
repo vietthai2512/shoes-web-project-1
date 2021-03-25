@@ -4,7 +4,7 @@
     "private": true,
     "main": "src/app.ts",
     "scripts": {
-        "build-ts": "tsc",
+        "build-ts": "tsc -p tsconfig.json && tsc -p tsconfig.browser.json",
         "copy-static-assets": "ts-node copyStaticAssets.ts",
         "build": "npm run build-ts && npm run lint && npm run copy-static-assets",
         "debug": "npm run build && npm run watch-debug",
