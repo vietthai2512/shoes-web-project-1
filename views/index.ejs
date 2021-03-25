@@ -1,21 +1,56 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<%- include('./partials/head', {title: title});%>
-		<link rel="preconnect" href="https://fonts.gstatic.com" />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Tangerine:wght@700&display=swap"
-			rel="stylesheet"
-		/>
+
+<head>
+	<%- include('./partials/head', {title: title}); %>
+
 		<link rel="stylesheet" href="/stylesheets/global.css" />
+		<link rel="stylesheet" href="/stylesheets/index.css" />
 		<link rel="stylesheet" href="/stylesheets/partials/header.css" />
-	</head>
-	<body>
-		<header><%- include('./partials/header'); %></header>
-		<main>
-			<h1><%= title %></h1>
-			<p>Welcome to <%= title %></p>
+		<link rel="stylesheet" href="/stylesheets/partials/sidebar.css" />
+		<link rel="stylesheet" href="/stylesheets/partials/cart.css" />
+</head>
+
+<body>
+
+	<%- include('./partials/header'); %>
+		<!-- start of hero -->
+		<section class="hero">
+			<div class="hero-container">
+				<h1 class="text-slanted">explore, relax, unwind</h1>
+				<h3>Embrace your choices - we do</h3>
+				<a href="products.html" class="hero-btn">show now</a>
+			</div>
+		</section>
+		<!-- end of hero -->
+
+		<%- include('./partials/sidebar'); %>
+			<%- include('./partials/cart'); %>
+
+
+				<!-- start of feature products -->
+				<section class="section featured">
+					<div class="title">
+						<h2><span>/</span> featured</h2>
+					</div>
+					<div class="featured-center section-center">
+						<h2 class="section-loading">loading...</h2>
+					</div>
+					<a href="./products.html" class="btn">all products</a>
+				</section>
+				<!-- end of feature products -->
+
+				<script type="module" src="dist/index.js"></script>
+				<!-- <main>
+			<h1>
+				<%= title %>
+			</h1>
+			<p>Welcome to <%= title %>
+			</p>
 		</main>
-		<footer><%- include('./partials/footer'); %></footer>
-	</body>
+		<footer>
+			<%- include('./partials/footer'); %>
+		</footer> -->
+</body>
+
 </html>
