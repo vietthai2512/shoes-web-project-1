@@ -1,44 +1,129 @@
-<div id="nav-bar">
-	<div id="nav-belt">
-		<div class="nav-left">
-			<div id="nav-logo">
-				<a href="/">Tikee</a>
-			</div>
-		</div>
-		<div class="nav-fill">
-			<div id="nav-search">
-				<form id="nav-search-bar-form">
-					<div class="nav-left">
-						<a href="">ALL</a>
+<!-- start of navbar -->
+<nav class="navbar">
+	<div class="nav-utils-wrapper">
+		<div class="nav-utils">
+			<ul class="nav-links">
+				<div class="lang-selector">
+					<input type="checkbox" id="lang-selector-checkbox" />
+
+					<label for="lang-selector-checkbox"
+						class="lang-selector-label nav-utils-font text-bold">🏴󠁧󠁢󠁥󠁮󠁧󠁿 english </label>
+
+					<div class="lang-list">
+						<ul>
+							<li>
+								<a href="#" class="nav-utils-font text-bold">🏴󠁧󠁢󠁥󠁮󠁧󠁿 english</a>
+							</li>
+							<li>
+								<a href="#" class="nav-utils-font text-bold">🇻🇳 tiếng việt</a>
+							</li>
+						</ul>
 					</div>
-					<div class="nav-fill">
-						<input type="text">
-					</div>
-					<div class="nav-right">
-						<button type="submit">Search</button>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="nav-right">
-			<div id="nav-tools">
-				<a href="/">Language</a>
-				<a href="/">Log in</a>
-				<a href="/">Cart</a>
-			</div>
+				</div>
+				<span>|</span>
+				<li>
+					<a href="/" class="nav-link nav-utils-font text-bold">about</a>
+				</li>
+				<span>|</span>
+				<li>
+					<a href="/" class="nav-link nav-utils-font text-bold">log in</a>
+				</li>
+			</ul>
 		</div>
 	</div>
-	<div id="nav-main">
-		<!--<ul>
-			<li><a href="/">xxx</a></li>
-			<li><a href="#">Two</a>
-				<ul class="dropdown">
-					<li><a href="#">Sub-1</a></li>
-					<li><a href="#">Sub-2</a></li>
-					<li><a href="#">Sub-3</a></li>
+
+	<div class="nav-center-wrapper">
+		<div class="nav-center">
+			<!-- logo -->
+			<div class="nav-logo-wrapper fix-z-index">
+				<div class="nav-logo">
+					<a href="/">Tikee</a>
+				</div>
+			</div>
+
+			<!-- links -->
+			<div class="nav-center-links">
+				<button class="toggle-nav">
+					<svg width="1.5rem" height="1.5rem" fill="#111" viewBox="0 0 24 24">
+						<path
+							d="M21 13H3c-.6 0-1-.4-1-1s.4-1 1-1h18c.6 0 1 .4 1 1s-.4 1-1 1zm0-8H3c-.6 0-1-.4-1-1s.4-1 1-1h18c.6 0 1 .4 1 1s-.4 1-1 1zm0 16H3c-.6 0-1-.4-1-1s.4-1 1-1h18c.6 0 1 .4 1 1s-.4 1-1 1z">
+						</path>
+					</svg>
+				</button>
+
+				<ul class="nav-links">
+					<li>
+						<a href="" class="nav-link nav-center-font text-bold hover-underline">all</a>
+					</li>
+					<li>
+						<a href="" class="nav-link nav-center-font text-bold hover-underline">men</a>
+					</li>
+					<li>
+						<a href="" class="nav-link nav-center-font text-bold hover-underline">women</a>
+					</li>
+					<li>
+						<a href="" class="nav-link nav-center-font text-bold hover-underline">kids</a>
+					</li>
 				</ul>
-			</li>
-		</ul>
-		-->
+			</div>
+
+			<!-- <img src="./images/logo-white.svg" class="nav-logo" alt="logo" /> -->
+			<div class="nav-center-right fix-z-index">
+				<div class="pre-search-input-box" type="search">
+					<button class="pre-search-btn" data-var="vsButton" aria-label="Search">
+						<svg class="pre-search-input-icon" fill="#111" height="1.5rem" width="1.5rem"
+							viewBox="0 0 24 24">
+							<path
+								d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.39zM11 18a7 7 0 1 1 7-7 7 7 0 0 1-7 7z">
+							</path>
+						</svg>
+					</button>
+					<input type="text" id="VisualSearchInput" class="pre-search-input" name="search" autocomplete="off"
+						tabindex="0" placeholder="search">
+					<button class="pre-clear-search" data-var="vsClearSearch">
+						<svg class="search-clear-icon" fill="#111" height="1.5rem" width="1.5rem" viewBox="0 0 24 24">
+							<path
+								d="M22 20H7.3c-.3 0-.6-.1-.8-.4l-5.3-7c-.3-.4-.3-.9 0-1.2l5.3-7c.2-.3.5-.4.8-.4H22c.6 0 1 .4 1 1v14c0 .6-.4 1-1 1zM7.8 18H21V6H7.8l-4.6 6 4.6 6zm8.2-3c-.3 0-.5-.1-.7-.3L14 13.4l-1.3 1.3c-.4.4-1 .4-1.4 0s-.4-1 0-1.4l1.3-1.3-1.3-1.3c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.3 1.3 1.3-1.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4L15.4 12l1.3 1.3c.4.4.4 1 0 1.4-.2.2-.5.3-.7.3z">
+							</path>
+						</svg>
+					</button>
+
+				</div>
+
+
+				<!-- <ul class="nav-links">
+				<li>
+					<a href="/" class="nav-link">log in</a>
+				</li>
+			</ul> -->
+
+				<!-- cart icon -->
+				<div class="toggle-container">
+					<button class="toggle-fav">
+						<svg width="1.5rem" height="1.5rem" fill="#111" viewBox="0 0 24 24">
+							<path
+								d="M21.11 4a6.6 6.6 0 0 0-4.79-1.92A6.27 6.27 0 0 0 12 3.84 6.57 6.57 0 0 0 2.89 4c-2.8 2.68-2.45 7.3.88 10.76l6.84 6.63A2 2 0 0 0 12 22a2 2 0 0 0 1.37-.54l.2-.19.61-.57c.6-.57 1.42-1.37 2.49-2.41l2.44-2.39 1.09-1.07c3.38-3.55 3.8-8.1.91-10.83zm-2.35 9.4l-.25.24-.8.79-2.44 2.39c-1 1-1.84 1.79-2.44 2.36L12 20l-6.83-6.68c-2.56-2.66-2.86-6-.88-7.92a4.52 4.52 0 0 1 6.4 0l.09.08a2.12 2.12 0 0 1 .32.3l.9.94.9-.94.28-.27.11-.09a4.52 4.52 0 0 1 6.43 0c1.97 1.9 1.67 5.25-.96 7.98z">
+							</path>
+						</svg>
+					</button>
+
+					<button class="toggle-cart">
+						<span class="cart-item-count">2</span>
+						<svg width="1.5rem" height="1.5rem" fill="#111" viewBox="0 0 24 24">
+							<path
+								d="M16 7a1 1 0 0 1-1-1V3H9v3a1 1 0 0 1-2 0V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3a1 1 0 0 1-1 1z">
+							</path>
+							<path
+								d="M20 5H4a2 2 0 0 0-2 2v13a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a2 2 0 0 0-2-2zm0 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7h16z">
+							</path>
+						</svg>
+					</button>
+
+				</div>
+			</div>
+
+		</div>
 	</div>
-</div>
+
+</nav>
+<!-- end of navbar -->
