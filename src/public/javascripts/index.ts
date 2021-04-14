@@ -1,6 +1,7 @@
 import './toggleSidebar.js';
 import './cart/toggleCart.js';
 import './hideShowNavbar.js';
+import './toggleLogin.js';
 import './detectOutsideClick.js';
 import fetchProducts from './fetchProducts.js';
 import { setupStore, store } from './store.js';

@@ -1,0 +1,133 @@
+<div class="login-overlay">
+    <div class="login-container">
+        <button class="login-close">
+            <svg fill="#111" height="1rem" width="1rem" viewBox="0 0 24 24">
+                <path
+                    d="M15.04 12L24 2.96 21.04 0 12 8.96 3.04 0 0 2.96 9.04 12 0 20.96 3.04 24 12 14.96 21.04 24 24 20.96z">
+                </path>
+            </svg>
+        </button>
+        
+        <aside class="login">
+            <!-- <form method="post" action="/user/login">
+            <div class="field">
+                <input type="email" id="email" name="email" class="input" placeholder=" " required />
+                <label for="email" class="label">Email</label>
+            </div>
+
+            <div class="field">
+                <input type="password" id="password" name="password" class="input" placeholder=" " required />
+                <label for="password" class="label">Password</label>
+            </div>
+
+            <div id="div_button">
+                <button type="submit">Log in</button>
+            </div>
+        </form> -->
+            <header>
+                <h1>Log in to Tikee</h1>
+            </header>
+            <div>
+                <form class="login-form" name="login" novalidate="">
+                    <div>
+                        <label class="login-form-label" for="email">Email</label>
+                        <div>
+                            <div>
+                                <input class="login-form-input" placeholder="name@email.com" id="email" name="email" type="email">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="login-form-label" for="password">Password</label>
+                        <div>
+                            <div class="login-form-input-container">
+                                <input class="login-form-input" placeholder="Enter your password" id="password" name="password" type="password">
+                                <button class="show-password-btn" type="button">
+                                    <svg viewBox="0 0 48 48" role="img" xmlns="http://www.w3.org/2000/svg"
+                                        style="fill: rgb(54, 59, 66); height: 24px; width: 24px;">
+                                        <title>Show password</title>
+                                        <desc>Show password</desc>
+                                        <g transform="translate(0.000000, 9.000000)" role="presentation">
+                                            <path
+                                                d="M2.45946122,15 C4.52737959,17.618 13.3868082,28 23.7459918,28 C34.1061551,28 42.9655837,17.618 45.033502,15 C42.9655837,12.382 34.1061551,2 23.7459918,2 C13.3868082,2 4.52737959,12.382 2.45946122,15 M23.7459918,30 C10.9554612,30 0.849991837,16.181 0.426808163,15.593 L-0.000293877551,15 L0.426808163,14.407 C0.849991837,13.819 10.9554612,0 23.7459918,0 C36.537502,0 46.6429714,13.819 47.0661551,14.407 L47.4932571,15 L47.0661551,15.593 C46.6429714,16.181 36.537502,30 23.7459918,30">
+                                            </path>
+                                            <path
+                                                d="M23.7464816,9 C20.5050122,9 17.8689306,11.692 17.8689306,15 C17.8689306,18.308 20.5050122,21 23.7464816,21 C26.987951,21 29.6240327,18.308 29.6240327,15 C29.6240327,11.692 26.987951,9 23.7464816,9 M23.7464816,23 C19.425502,23 15.9097469,19.411 15.9097469,15 C15.9097469,10.589 19.425502,7 23.7464816,7 C28.0674612,7 31.5832163,10.589 31.5832163,15 C31.5832163,19.411 28.0674612,23 23.7464816,23">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div id="password-hint">
+                                <button class="forgot-pwd-btn" type="button">Forgot password?</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="submit-btn" type="submit">Login</button>
+                </form>
+
+                <div class="divider-container">
+                    <hr class="divider-stroke">
+                    <div class="divider-text">or</div>
+                    <hr class="divider-stroke">
+                </div>
+
+                <section class="login-choices-container">
+                    <button type="button" class="login-choice">
+                        <svg viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg"
+                            style="height: 18px; width: 18px;">
+                            <title>Google</title>
+                            <g fill="none" fill-rule="evenodd" role="presentation">
+                                <path
+                                    d="M23.52 12.273c0-.851-.076-1.67-.218-2.455H12v4.642h6.458a5.52 5.52 0 01-2.394 3.622v3.01h3.878c2.269-2.088 3.578-5.165 3.578-8.82z"
+                                    fill="#4285F4" fill-rule="nonzero"></path>
+                                <path
+                                    d="M12 24c3.24 0 5.956-1.075 7.942-2.907l-3.878-3.011c-1.075.72-2.45 1.145-4.064 1.145-3.125 0-5.77-2.11-6.715-4.947H1.276v3.11A11.995 11.995 0 0012 24z"
+                                    fill="#34A853" fill-rule="nonzero"></path>
+                                <path
+                                    d="M5.285 14.28A7.213 7.213 0 014.91 12c0-.79.136-1.56.376-2.28V6.61H1.276A11.995 11.995 0 000 12c0 1.936.464 3.77 1.276 5.39l4.01-3.11z"
+                                    fill="#FBBC05" fill-rule="nonzero"></path>
+                                <path
+                                    d="M12 4.773c1.762 0 3.344.605 4.587 1.794l3.442-3.442C17.951 1.19 15.235 0 12 0 7.31 0 3.25 2.69 1.276 6.61l4.01 3.11C6.228 6.884 8.874 4.773 12 4.773z"
+                                    fill="#EA4335" fill-rule="nonzero"></path>
+                                <path d="M0 0h24v24H0z"></path>
+                            </g>
+                        </svg>
+                        Continue with Google
+                    </button>
+
+                    <button type="button" class="login-choice">
+                        <svg viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg"
+                            style="fill: rgb(59, 89, 152); height: 18px; width: 18px;">
+                            <title>Facebook</title>
+                            <path
+                                d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"
+                                role="presentation">
+                            </path>
+                        </svg>
+                        Continue with Facebook
+                    </button>
+
+                    <button type="button" class="login-choice">
+                        <svg viewBox="0 0 1000 1187.198" role="img" xmlns="http://www.w3.org/2000/svg"
+                            style="height: 18px; width: 18px;">
+                            <title>Apple</title>
+                            <path
+                                d="M979.042 925.188c-17.954 41.477-39.206 79.657-63.828 114.759-33.563 47.853-61.044 80.976-82.222 99.37-32.83 30.192-68.006 45.654-105.672 46.533-27.041 0-59.652-7.694-97.611-23.303-38.085-15.536-73.084-23.23-105.086-23.23-33.563 0-69.56 7.694-108.061 23.23-38.561 15.609-69.625 23.743-93.376 24.55-36.12 1.538-72.123-14.364-108.06-47.78-22.938-20.006-51.627-54.302-85.997-102.888-36.875-51.883-67.191-112.047-90.942-180.639C12.751 781.703 0 709.96 0 640.504c0-79.562 17.192-148.183 51.627-205.687 27.063-46.19 63.066-82.625 108.127-109.373 45.06-26.748 93.749-40.378 146.182-41.25 28.69 0 66.312 8.874 113.066 26.315 46.622 17.5 76.557 26.374 89.682 26.374 9.812 0 43.068-10.376 99.443-31.064 53.313-19.185 98.307-27.129 135.168-24 99.883 8.062 174.923 47.436 224.828 118.372-89.33 54.126-133.52 129.936-132.64 227.188.806 75.751 28.287 138.788 82.295 188.84 24.476 23.23 51.81 41.183 82.222 53.934-6.595 19.127-13.557 37.447-20.958 55.035zM749.964 23.75c0 59.374-21.692 114.81-64.928 166.122-52.176 61-115.286 96.248-183.724 90.686a184.836 184.836 0 01-1.378-22.497c0-56.999 24.813-117.998 68.878-167.874 21.999-25.253 49.978-46.25 83.907-63 33.856-16.5 65.88-25.625 95.999-27.187.88 7.937 1.246 15.875 1.246 23.75z"
+                                role="presentation">
+                            </path>
+                        </svg>
+                        Continue with Apple
+                    </button>
+                </section>
+                <p class="signup-btn-container">
+                    <span>New to Tikee?
+                        <button type="button">Sign up</button>
+                    </span>
+                </p>
+            </div>
+
+        </aside>
+    </div>
+
+</div>

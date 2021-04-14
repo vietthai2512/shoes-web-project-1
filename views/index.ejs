@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<%- include('./partials/head', {title: title}); %>
+	<head>
+		<%- include('./partials/head', {title: title}); %>
 
 		<link rel="stylesheet" href="/stylesheets/global.css" />
 		<link rel="stylesheet" href="/stylesheets/index.css" />
 		<link rel="stylesheet" href="/stylesheets/partials/header.css" />
 		<link rel="stylesheet" href="/stylesheets/partials/sidebar.css" />
 		<link rel="stylesheet" href="/stylesheets/partials/cart.css" />
-</head>
+		<link rel="stylesheet" href="/stylesheets/user/login-tmp.css">
+	</head>
 
-<body>
-
-	<%- include('./partials/header'); %>
+	<body>
+		<%- include('./partials/header'); %>
+		
 		<!-- start of hero -->
 		<section class="hero">
 			<div class="hero-container">
@@ -24,24 +24,24 @@
 		</section>
 		<!-- end of hero -->
 
-		<%- include('./partials/sidebar'); %>
-			<%- include('./partials/cart'); %>
+		<%- include('./partials/sidebar'); %> 
+		<%- include('./partials/cart'); %>
+		<%- include('./user/login-tmp.ejs') %> 
+		
+		<!-- start of feature products -->
+		<section class="section featured">
+			<div class="title">
+				<h2><span>/</span> featured</h2>
+			</div>
+			<div class="featured-center section-center">
+				<h2 class="section-loading">loading...</h2>
+			</div>
+			<a href="./products.html" class="btn">all products</a>
+		</section>
+		<!-- end of feature products -->
 
-
-				<!-- start of feature products -->
-				<section class="section featured">
-					<div class="title">
-						<h2><span>/</span> featured</h2>
-					</div>
-					<div class="featured-center section-center">
-						<h2 class="section-loading">loading...</h2>
-					</div>
-					<a href="./products.html" class="btn">all products</a>
-				</section>
-				<!-- end of feature products -->
-
-				<script type="module" src="javascripts/index.js"></script>
-				<!-- <main>
+		<script type="module" src="javascripts/index.js"></script>
+		<!-- <main>
 			<h1>
 				<%= title %>
 			</h1>
@@ -51,6 +51,5 @@
 		<footer>
 			<%- include('./partials/footer'); %>
 		</footer> -->
-</body>
-
+	</body>
 </html>

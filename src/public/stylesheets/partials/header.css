@@ -209,6 +209,10 @@ Navbar
 	display: none;
 }
 
+.toggle-login {
+	cursor: pointer;
+}
+
 .nav-logo > a {
 	font: 3rem bold;
 	text-transform: lowercase;

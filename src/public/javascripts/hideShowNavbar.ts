@@ -1,11 +1,11 @@
 import { getElement, throttled } from './utils.js';
 
 let prevScrollPos = window.pageYOffset;
-let navCenterWrapper = getElement('.nav-center-wrapper') as HTMLElement;
+const navCenterWrapper = getElement('.nav-center-wrapper') as HTMLElement;
 
 window.addEventListener('scroll', throttled(() =>
 {
-    let currScrollPos = window.pageYOffset;
+    const currScrollPos = window.pageYOffset;
     if (prevScrollPos > currScrollPos)
     {
         navCenterWrapper.style.top = '0';
