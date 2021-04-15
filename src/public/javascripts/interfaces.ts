@@ -51,5 +51,5 @@ export interface Full
 
 export enum Type
 {
-    ImageJPEG = "image/jpeg",
+    ImageJPEG = 'image/jpeg',
 }

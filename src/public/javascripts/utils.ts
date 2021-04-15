@@ -1,4 +1,4 @@
-import { ProductWeb } from "./interfaces";
+import { ProductWeb } from './interfaces';
 
 export const allProductsUrl = 'https://course-api.com/javascript-store-products';
 
@@ -9,13 +9,19 @@ export const getElement = (selection: string) =>
     throw new Error(`Please check "${selection}" selector, no such element exist`);
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const throttled = (fn: Function, delay = 200) =>
 {
     let last = 0;
     return function (...args: any)
     {
         const now = (new Date).getTime();
-        if (now - last < delay) { return; }
+        
+        if (now - last < delay) 
+        {
+            return; 
+        }
+
         last = now;
         return fn(...args);
     };
@@ -23,7 +29,7 @@ export const throttled = (fn: Function, delay = 200) =>
 
 export const formatPrice = (price: number) =>
 {
-    let formattedPrice = new Intl.NumberFormat('en-US', {
+    const formattedPrice = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD'
     }).format((price / 100).toFixed(2) as unknown as number);
@@ -33,7 +39,7 @@ export const formatPrice = (price: number) =>
 
 export const getStorageItem = (item: string) =>
 {
-    let storeageItem = localStorage.getItem(item);
+    const storeageItem = localStorage.getItem(item);
     let storeageItemObj: ProductWeb[] = [];
 
     if (storeageItem)
